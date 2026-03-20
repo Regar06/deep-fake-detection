@@ -1,10 +1,7 @@
 import cv2
 import numpy as np
-import tensorflow as tf
 # from tensorflow.keras.preprocessing.image import img_to_array, load_img
 # from tensorflow.keras.utils import array_to_img
-
-model = tf.keras.models.load_model('./models/deepfake2.keras')
 
 def crop_face(img_arr):
     img_arr = cv2.cvtColor(img_arr,cv2.COLOR_BGR2RGB)
@@ -27,18 +24,11 @@ def crop_face(img_arr):
     return -1
 
 def image_classifier(img_path):
-    img_arr = cv2.imread(img_path)
-    face = crop_face(img_arr)
-    if not isinstance(face, np.ndarray):
-        return -1
-    input = np.expand_dims(face,axis=0)
-    pred = model.predict(input)
-    res = np.argmax(pred)
-    return int(res)
+   
+   return 0   # always returns REAL (dummy)
 
 def video_classifier(video_path):
-    cap = cv2.VideoCapture(video_path)
-    if not cap.isOpened():
+   
         print("Error: Unable to open video")
 
     count = 0
@@ -62,12 +52,7 @@ def video_classifier(video_path):
             continue;
     
         count+=1
-        data = np.expand_dims(face,axis=0)
-        pred = np.argmax(model.predict(data))
-        print(pred)
-
-        if pred==1:
-            return 1
+       return 0   # dummy result
 
     cap.release()
 
