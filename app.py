@@ -51,6 +51,9 @@ async def predict_image(image: UploadFile = File(...)):
         return JSONResponse(content={"message":"Error in reading Image Data"})
 
 
-# if __name__ == "__main__":
-#     import uvicorn
-#     uvicorn.run(app, host="0.0.0.0", port=4000)
+import os
+import uvicorn
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 10000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
